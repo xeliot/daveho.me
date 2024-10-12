@@ -6,7 +6,7 @@ export default function Page() {
     <section>
       <a href={socialLinks.twitter} target="_blank">
         <Image
-          src="/profile.png"
+          src="/profile.jpeg"
           alt="Profile photo"
           className="rounded-full bg-gray-100 block lg:mt-5 mt-0 lg:mb-5 mb-10 mx-auto sm:float-right sm:ml-5 sm:mb-5 grayscale hover:grayscale-0"
           unoptimized
@@ -17,14 +17,18 @@ export default function Page() {
       </a>
 
       <h1 className="mb-8 text-2xl font-medium tracking-tight">
-        Portfolio, made simple!
+        Welcome to my page!
       </h1>
 
       <div className="prose prose-neutral dark:prose-invert">
         <p>
-          A clean, fast, and lightweight portfolio template built with Next.js,
-          Vercel, and Tailwind CSS for optimal performance.
+          I'm a software engineer passionate about areas of AI, MLOps, and algorithms.
+          I'm interested in building robust and scalable AI driven solutions for complex problems.
         </p>
+        <p>
+          My hobbies include climbing, video games, and spending time with my cats.
+        </p>
+        {/*
         <p>
           Nextfolio includes all the essentials for a stunning portfolio: SEO,
           MDX support, RSS, Atom, & JSON feeds, analytics, tweet & YouTube
@@ -62,6 +66,7 @@ export default function Page() {
           </a>
           .
         </p>
+        */}
       </div>
     </section>
   );

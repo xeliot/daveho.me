@@ -4,6 +4,7 @@ import { metaData } from "../config";
 
 const navItems = {
   "/blog": { name: "Blog" },
+  "/experiences": { name: "Experiences" },
   "/projects": { name: "Projects" },
   "/photos": { name: "Photos" },
 };
