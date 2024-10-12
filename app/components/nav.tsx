@@ -3,10 +3,10 @@ import { ThemeSwitch } from "./theme-switch";
 import { metaData } from "../config";
 
 const navItems = {
-  "/experiences": { name: "Experiences", download: false },
+  "/experience": { name: "Experience", download: false },
   "/projects": { name: "Projects", download: false },
-  "/assets/resume.pdf": { name: "Resume", download: true },
   "/blog": { name: "Blog", download: false },
+  "/assets/resume.pdf": { name: "Resume", download: true },
 };
 
 export function Navbar() {
@@ -25,7 +25,8 @@ export function Navbar() {
                 key={path}
                 href={path}
                 className="transition-all hover:text-neutral-800 dark:hover:text-neutral-200 flex align-middle relative"
-                download
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {name}
               </a>

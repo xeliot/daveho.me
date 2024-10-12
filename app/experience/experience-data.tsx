@@ -39,6 +39,6 @@ export const experiences: Experience[] = [
     duration: "Oct 2019 - Jun 2020",
     description:
       "Developed an app which helps users interact with the world through simple and natural motions by bringing automated and customizable ML-based gesture recognition to the smartwatch.",
-    url: "/experiences",
+    url: "/experience",
   },
 ];

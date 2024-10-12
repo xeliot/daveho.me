@@ -26,7 +26,10 @@ export default function Page() {
           I'm interested in building robust and scalable AI driven solutions for complex problems.
         </p>
         <p>
-          My hobbies include climbing, video games, and spending time with my cats.
+          My hobbies include climbing, watching soccer, video games, and spending time with my cats.
+        </p>
+        <p>
+          Bay Area is home for me, so if you're around, let's grab a coffee!
         </p>
         {/*
         <p>

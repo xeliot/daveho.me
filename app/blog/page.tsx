@@ -3,7 +3,7 @@ import { formatDate, getBlogPosts } from "app/lib/posts";
 
 export const metadata = {
   title: "Blog",
-  description: "Nextfolio Blog",
+  description: "Personal Blog",
 };
 
 export default function BlogPosts() {
@@ -11,7 +11,8 @@ export default function BlogPosts() {
 
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-medium tracking-tight">Our Blog</h1>
+      <h1 className="mb-8 text-2xl font-medium tracking-tight">Blog</h1>
+      <p className="text-sm text-neutral-500 dark:text-neutral-400 mb-4 italic">This page is under construction.</p>
       <div>
         {allBlogs
           .sort((a, b) => {

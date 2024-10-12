@@ -1,0 +1,186 @@
+---
+title: "The Knapsack Problem"
+publishedAt: "2016-01-29"
+summary: "Python Implementation of different algorithms for the Knapsack Problem"
+tags: "Knapsack, Algorithms"
+---
+
+<Image
+  src="/assets/knapsack.png"
+  alt="Knapsack Problem Illustration"
+  width={640}
+  height={480}
+/>
+
+There is a burglar who is able to break into a house. He sees different items as are shown above. Each items has its own weight and its value. The burglar has a knapsack that can only hold a certain weight. The question is which items would he choose in such as way that he can maximize his total value but still fit into the knapsack.
+
+There are many ways to solve this problem. In this post I will talk about the following:
+Greedy algorithm
+Brute Force algorithm
+
+### Greedy Algorithm
+
+The greedy algorithm is an algorithm that solves the knapsack problem by making the locally optimum choice in hope of finding the global optimum. In other words, the greedy algorithm always puts the next best item into the knapsack until the knapsack can not hold anymore weight. With that being said, we have to define what best means. The three main definitions are:
+The item with the greatest value
+The item with the least weight
+The item with the greatest value/weight ratio
+The greedy algorithm has a low order of complexity as it finds the solution to the problem very fast. However, it is not the most accurate as it does not always find the most optimum solution. The greedy algorithm only takes in the local optimum meaning it will not take something worse than it already has to achieve something even better in the future. 
+
+### Brute Force Algorithm
+
+The brute force algorithm is an algorithm that solves the knapsack problem by going through all the possible combinations to put the items in the knapsack and compares each combination, eventually finding the most optimum solution.
+
+The brute force algorithm always finds the most optimum solution, meaning that there can be no better solution. However, it has an exponential order of complexity as it has to go through each and every combination of putting the items into the knapsack.
+
+### Building the Knapsack Problem
+
+In order to visualize the problem better, let's build a program to simulate the greedy and brute force algorithms.
+
+First of all, lets build a class to represent an item.
+
+```
+class Item():
+    def __init__(self, name, value, weight):
+        self.name = name
+        self.value = float(value)
+        self.weight = float(weight)
+    def __str__(self):
+        result = '<' + self.name + ', ' + str(self.value)\
+                + ', ' + str(self.weight) + '>'
+        return result
+```
+
+Each item has a name, a value, and a weight.
+
+Next let's build a function to create all the items that are available.
+
+```
+def build_items():
+    names = ['frisbee', 'ball', 'headphone', 'book', 'poker']
+    values = [5, 20, 25, 45, 2]
+    weights = [0.4, 2.2, 1.2, 2, 0.6]
+    items = []
+    for i in range(0, len(names)):
+        items.append(Item(names[i], values[i], weights[i]))
+    return items
+```
+
+In this simulation we have the following items:
+
+frisbee (value: 5, weight: 0.4)
+ball (value: 20, weight: 2.2)
+headphone (value: 25, weight: 1.2)
+book (value: 45, weight: 2)
+poker set (value: 2, weight: 0.6)
+Now we'll implement the three types of greedy
+
+The first type of greedy: Greedy by value
+
+```
+def greedy_value(items, capacity):
+    copy_items = sorted(items, key=lambda item: item.value, reverse=True)
+    sack = []
+    current_capacity = capacity
+    for item in copy_items:
+        if item.weight < current_capacity:
+            sack.append(str(item))
+            current_capacity -= item.weight
+        elif current_capacity == 0:
+            break
+    return sack
+```
+
+Greedy by value always takes the item with the greatest value and does not care about any other factors.
+
+The second type of greedy: Greedy by weight
+
+```
+def greedy_weight(items, capacity):
+    copy_items = sorted(items, key=lambda item: item.weight)
+    sack = []
+    current_capacity = capacity
+    for item in copy_items:
+        if item.weight < current_capacity:
+            sack.append(str(item))
+            current_capacity -= item.weight
+        elif current_capacity == 0:
+            break
+    return sack
+```
+
+Greedy by weight always takes the item with the least weight and does not care about any other factors.
+
+The third type of greedy: Greedy by value/weight ratio
+
+```
+def greedy_ratio(items, capacity):
+    copy_items = sorted(items, key=lambda item: item.value/item.weight, reverse=True)
+    sack = []
+    current_capacity = capacity
+    for item in copy_items:
+        if item.weight < current_capacity:
+            sack.append(str(item))
+            current_capacity -= item.weight
+        elif current_capacity == 0:
+            break
+    return sack
+```
+
+Greedy by value/weight ratio always takes the item with the greatest value/weight ratio
+
+Now let's implement the brute force method. In order for the brute force method to work, we need to find a way to represent all the possible ways to put the items into the knapsack. We do this by generating a powerset by using binary numbers. 0 represents not taking the item, and 1 represents taking the item.
+
+First lets write a function to build this powerset from the items.
+
+```
+def genpset(items):
+    result = []
+    if len(items) == 0:
+        return [[]]
+    rest = genpset(items[1:])
+    for i in rest:
+        result.append(i)
+        result.append(i + [items[0]])
+    return result
+```
+
+Now let's write the brute force function using this powerset
+
+```
+def brute_force(items, capacity):
+    pset = genpset(items)
+    maxval = -1
+    maxsub = None
+    totval = 0
+    totweight = 0
+    for sub in pset:
+        for item in sub:
+            totweight += item.weight
+            totval += item.value
+        if totweight < capacity:
+            if totval > maxval:
+                maxval = totval
+                maxsub = sub
+        totval = 0
+        totweight = 0
+    return [str(i) for i in maxsub]
+```
+
+This function goes through all the possible ways of putting items into the knapsack and chooses the best one.
+
+Now lets run the brute force method and the greedy method to compare the two.
+
+```
+>>> items = build_items()
+>>> capacity = 2.2
+>>> greedy_value(items, capacity)
+['<book, 45.0, 2.0>']
+>>> greedy_weight(items, capacity)
+['<frisbee, 5.0, 0.4>', '<poker, 2.0, 0.6>', '<headphone, 25.0, 1.2>']
+>>> greedy_ratio(items, capacity)
+['<book, 45.0, 2.0>']
+>>> brute_force(items, capacity)
+['<book, 45.0, 2.0>']
+```
+
+For the complete implementation of the Knapsack Problem, including all methods and additional details, please visit the [GitHub repository](https://github.com/xeliot/KnapSackProblem).

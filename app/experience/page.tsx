@@ -7,10 +7,10 @@ export const metadata: Metadata = {
   description: "Places I've worked",
 };
 
-export default function Experiences() {
+export default function Experience() {
   return (
     <section>
-      <h1 className="mb-8 text-2xl font-medium tracking-tight">Experiences</h1>
+      <h1 className="mb-8 text-2xl font-medium tracking-tight">Experience</h1>
       <div className="space-y-6">
         {experiences.map((experience, index) => (
           <a
